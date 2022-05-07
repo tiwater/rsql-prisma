@@ -1,0 +1,49 @@
+{
+  "name": "rsql-prisma",
+  "version": "0.0.1",
+  "description": "RSQL emitter to Prisma queries for Node.js and Browsers",
+  "keywords": [
+    "rsql",
+    "prisma",
+    "typescript"
+  ],
+  "homepage": "https://github.com/tiwater/rsql-prisma#readme",
+  "bugs": {
+    "url": "https://github.com/tiwater/rsql-prisma/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tiwater/rsql-prisma.git"
+  },
+  "license": "MIT",
+  "author": "Tiwater Team",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.cjs"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc && npm run build:mjs && npm run build:cjs",
+    "build:cjs": "esbuild src/index.ts --bundle --minify --format=cjs --outfile=dist/index.cjs",
+    "build:mjs": "esbuild src/index.ts --bundle --minify --format=esm --outfile=dist/index.mjs",
+    "test": "mocha --config test/mocha.cjs test/**.spec.ts"
+  },
+  "dependencies": {
+    "@rsql/ast": "^1.3.2",
+    "@rsql/parser": "^1.3.2"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.1",
+    "@types/mocha": "^9.1.1",
+    "chai": "^4.3.6",
+    "esbuild": "^0.14.26",
+    "esbuild-register": "^3.3.2",
+    "mocha": "^10.0.0",
+    "typescript": "^4.6.2"
+  }
+}
