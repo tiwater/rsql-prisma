@@ -69,11 +69,12 @@ describe('convert RSQL to prisma queries', () => {
       fields: {
         price: (s: string) => Number.parseInt(s)
       },
+      nameMappings: new Map([['price', 'priceSell']]),
       defaultQuery: { always: true }
     };
     const result = parse('price>20', config);
     assert.deepEqual(result, {
-      price: { gt: 20 }
+      priceSell: { gt: 20 }
     })
 
     const r2 = parse('project=in=(t1)', config);
