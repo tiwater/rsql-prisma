@@ -69,7 +69,7 @@ describe('convert RSQL to prisma queries', () => {
       fields: {
         price: (s: string) => Number.parseInt(s)
       },
-      filterNames: new Map([['price', 'priceSell']]),
+      nameMappings: new Map([['price', 'priceSell']]),
       defaultQuery: { always: true }
     };
     const result = parse('price>20', config);

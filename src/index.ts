@@ -22,7 +22,7 @@ import {
 
 export type RsqlPrismConfig = {
   fields?: Record<string, (s: string) => unknown>,
-  filterNames?: Map<string, string>,
+  nameMappings?: Map<string, string>,
   defaultQuery?: Record<string, unknown>,
 }
 
@@ -40,7 +40,7 @@ const mapRsql = (node: ExpressionNode, config: RsqlPrismConfig): PrismaQuery => 
 
 const identity = <T>(x: T) => x;
 
-const mapComparison = (node: ComparisonNode, { fields, filterNames, defaultQuery }: RsqlPrismConfig) => {
+const mapComparison = (node: ComparisonNode, { fields, nameMappings, defaultQuery }: RsqlPrismConfig) => {
   let selector = getSelector(node);
   if (fields && !fields[selector]) {
     // field is NOT allowed to filter
@@ -50,7 +50,7 @@ const mapComparison = (node: ComparisonNode, { fields, filterNames, defaultQuery
   const v = getValue(node);
   const f = fields ? fields[selector] : identity;
   const value = Array.isArray(v) ? v.map(f) : f(v);
-  selector = (filterNames && filterNames.has(selector)) ? filterNames.get(selector) as string : selector;
+  selector = (nameMappings && nameMappings.has(selector)) ? nameMappings.get(selector) as string : selector;
 
   switch (node.operator) {
     case EQ:
